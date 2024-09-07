@@ -355,6 +355,18 @@ app.get('/roomstocks/:roomId', async (req, res) => {
   }
 });
 
+app.get('/roomstocks', async (req, res) => {
+  try {
+    const roomStock = await prisma.roomStock.findMany({
+      include: { product: true },
+    });
+    res.json(roomStock);
+  } catch (error) {
+    console.error('Error fetching room stock:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 // Create a new room stock entry
 app.post('/roomstocks/:roomId', async (req, res) => {
   const { productId, quantity } = req.body;
