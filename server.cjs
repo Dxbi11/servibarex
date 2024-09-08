@@ -417,9 +417,10 @@ app.delete('/roomstocks/:roomId/:productId', async (req, res) => {
     const productId = parseInt(req.params.productId);
 
     // Check if the record exists before attempting to delete
-    const existingStock = await prisma.roomStock.findUnique({
+    const existingStock = await prisma.roomStock.findFirst({
       where: {
-        roomId_productId: { roomId, productId },
+        roomId,
+        productId,
       },
     });
 
@@ -427,9 +428,11 @@ app.delete('/roomstocks/:roomId/:productId', async (req, res) => {
       return res.status(404).json({ error: 'Room stock not found' });
     }
 
-    await prisma.roomStock.delete({
+    // Delete the room stock entry
+    await prisma.roomStock.deleteMany({
       where: {
-        roomId_productId: { roomId, productId },
+        roomId,
+        productId,
       },
     });
 
@@ -439,6 +442,7 @@ app.delete('/roomstocks/:roomId/:productId', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error', details: error.message });
   }
 });
+
 
 // Invoice routes
 app.get('/invoices', async (req, res) => {
