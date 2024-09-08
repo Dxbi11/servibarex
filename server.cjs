@@ -367,10 +367,11 @@ app.get('/roomstocks', async (req, res) => {
   }
 });
 
-// Create a new room stock entry
+//Create new room stock entry
 app.post('/roomstocks/:roomId', async (req, res) => {
   const { productId, quantity } = req.body;
   try {
+    // Create the new roomStock entry
     const newRoomStock = await prisma.roomStock.create({
       data: {
         roomId: parseInt(req.params.roomId),
@@ -378,12 +379,23 @@ app.post('/roomstocks/:roomId', async (req, res) => {
         quantity,
       },
     });
-    res.json(newRoomStock);
+
+    // Fetch the newly created roomStock entry with the product included
+    const roomStockWithProduct = await prisma.roomStock.findFirst({
+      where: {
+        roomId: newRoomStock.roomId,
+        productId: newRoomStock.productId,
+      },
+      include: { product: true },
+    });
+
+    res.json(roomStockWithProduct);
   } catch (error) {
     console.error('Error creating room stock:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 // Update room stock quantity
 app.put('/roomstocks/:roomId/:productId', async (req, res) => {
