@@ -7,4 +7,6 @@ RUN npm install
 
 COPY . .
 
-CMD [ "node server.cjs" ]
+EXPOSE 3000
+
+CMD [ "node", "server.cjs" ]
