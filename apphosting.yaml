@@ -6,17 +6,43 @@ runConfig:
   concurrency: 5
 
 env:
-  DATABASE_URL: "postgresql://postgres:andrei445@localhost:5432/database"
-  POSTGRES_URL: "postgres://default:kU64VNRbWwix@ep-autumn-tree-a6zmx9ct-pooler.us-west-2.aws.neon.tech:5432/verceldb?sslmode=require"
-  POSTGRES_PRISMA_URL: "c"
-  POSTGRES_URL_NO_SSL: "postgres://default:kU64VNRbWwix@ep-autumn-tree-a6zmx9ct-pooler.us-west-2.aws.neon.tech:5432/verceldb"
-  POSTGRES_URL_NON_POOLING: "postgres://default:kU64VNRbWwix@ep-autumn-tree-a6zmx9ct.us-west-2.aws.neon.tech:5432/verceldb?sslmode=require"
-  POSTGRES_USER: "default"
-  POSTGRES_HOST: "ep-autumn-tree-a6zmx9ct-pooler.us-west-2.aws.neon.tech"
-  POSTGRES_PASSWORD: "kU64VNRbWwix"
-  POSTGRES_DATABASE: "verceldb"
+  - variable: DATABASE_URL
+    value: "postgresql://postgres:andrei445@localhost:5432/database"
+  - variable: POSTGRES_URL
+    value: "postgres://default:kU64VNRbWwix@ep-autumn-tree-a6zmx9ct-pooler.us-west-2.aws.neon.tech:5432/verceldb?sslmode=require"
+  - variable: POSTGRES_PRISMA_URL
+    value: "c"
+  - variable: POSTGRES_URL_NO_SSL
+    value: "postgres://default:kU64VNRbWwix@ep-autumn-tree-a6zmx9ct-pooler.us-west-2.aws.neon.tech:5432/verceldb"
+  - variable: POSTGRES_URL_NON_POOLING
+    value: "postgres://default:kU64VNRbWwix@ep-autumn-tree-a6zmx9ct.us-west-2.aws.neon.tech:5432/verceldb?sslmode=require"
+  - variable: POSTGRES_USER
+    value: "default"
+  - variable: POSTGRES_HOST
+    value: "ep-autumn-tree-a6zmx9ct-pooler.us-west-2.aws.neon.tech"
+  - variable: POSTGRES_PASSWORD
+    value: "kU64VNRbWwix"
+  - variable: POSTGRES_DATABASE
+    value: "verceldb"
 
 build_env_variables:
-  API_URL: "api.staging.service.com"
+  - variable: DATABASE_URL
+    value: "postgresql://postgres:andrei445@localhost:5432/database"
+  - variable: POSTGRES_URL
+    value: "postgres://default:kU64VNRbWwix@ep-autumn-tree-a6zmx9ct-pooler.us-west-2.aws.neon.tech:5432/verceldb?sslmode=require"
+  - variable: POSTGRES_PRISMA_URL
+    value: "c"
+  - variable: POSTGRES_URL_NO_SSL
+    value: "postgres://default:kU64VNRbWwix@ep-autumn-tree-a6zmx9ct-pooler.us-west-2.aws.neon.tech:5432/verceldb"
+  - variable: POSTGRES_URL_NON_POOLING
+    value: "postgres://default:kU64VNRbWwix@ep-autumn-tree-a6zmx9ct.us-west-2.aws.neon.tech:5432/verceldb?sslmode=require"
+  - variable: POSTGRES_USER
+    value: "default"
+  - variable: POSTGRES_HOST
+    value: "ep-autumn-tree-a6zmx9ct-pooler.us-west-2.aws.neon.tech"
+  - variable: POSTGRES_PASSWORD
+    value: "kU64VNRbWwix"
+  - variable: POSTGRES_DATABASE
+    value: "verceldb"
 
 entrypoint: node server.cjs
