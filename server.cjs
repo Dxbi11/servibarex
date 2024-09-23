@@ -84,17 +84,7 @@ app.put('/hotels/:id', async (req, res) => {
 app.delete('/hotels/:id', async (req, res) => {
   const hotelId = parseInt(req.params.id);
   try {
-    // Delete all rooms in the hotel
-    await prisma.room.deleteMany({
-      where: { floor: { hotelId: hotelId } },
-    });
-    
-    // Delete all floors in the hotel
-    await prisma.floor.deleteMany({
-      where: { hotelId: hotelId },
-    });
-    
-    // Now delete the hotel
+    // Deleting the hotel will also delete associated floors, rooms, products, invoices, and storehouse records due to cascade rules
     await prisma.hotel.delete({
       where: { id: hotelId },
     });
@@ -105,6 +95,7 @@ app.delete('/hotels/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error', details: error.message });
   }
 });
+
 
 // Floor routes
 app.post('/floors', async (req, res) => {
@@ -180,6 +171,7 @@ app.delete('/floors/:id', async (req, res) => {
   }
 });
 
+
 // Room routes
 app.get('/rooms', async (req, res) => {
   try {
@@ -254,6 +246,7 @@ app.delete('/rooms/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 // Product routes
 app.get('/products', async (req, res) => {
@@ -352,6 +345,7 @@ app.delete('/products/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 // RoomStock routes
 // Fetch room stock for a specific room

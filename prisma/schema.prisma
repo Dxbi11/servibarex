@@ -40,7 +40,7 @@ model Room {
   comment      String?
   checked      Boolean?
 
-  @@unique([roomNumber, hotelId])
+  @@unique([roomNumber, hotelId, floorId])
 }
 
 model Product {
