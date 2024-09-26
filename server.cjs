@@ -564,7 +564,7 @@ app.delete('/invoices/:id', async (req, res) => {
 
 // InvoiceItem routes
 app.post('/invoices/:invoiceId/items', async (req, res) => {
-  const { productId, quantity, price } = req.body;
+  const { productId, quantity, price, name } = req.body;
   try {
     const newInvoiceItem = await prisma.invoiceItem.create({
       data: {
@@ -572,6 +572,7 @@ app.post('/invoices/:invoiceId/items', async (req, res) => {
         productId,
         quantity,
         price,
+        name, // Add this line to store the name
       },
     });
     res.status(201).json(newInvoiceItem);
@@ -580,6 +581,7 @@ app.post('/invoices/:invoiceId/items', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 app.put('/invoices/:invoiceId/items/:itemId', async (req, res) => {
   const { quantity, price } = req.body;
