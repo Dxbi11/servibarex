@@ -80,6 +80,8 @@ model InvoiceItem {
   invoiceId Int
   productId Int
   quantity  Int
+  price     Float?  @default(0.0)
+  name      String  @default("")
   invoice   Invoice @relation(name: "InvoiceToInvoiceItem", fields: [invoiceId], references: [id], onDelete: Cascade)
   product   Product @relation(name: "InvoiceItemToProduct", fields: [productId], references: [id], onDelete: Cascade)
 }
