@@ -7,11 +7,15 @@ WORKDIR /app
 # Copy only package.json and package-lock.json to leverage Docker cache for npm install
 COPY package*.json ./
 
-# Clean npm cache and install dependencies
-RUN npm cache clean --force && npm install
-
-# Copy the rest of your application files to the container
+# Install dependencies
+RUN npm install
+# Copy the rest of the application files
 COPY . .
+# Generate Prisma client
+RUN npx prisma generate --schema=./prisma/schema.prisma
+
+
+
 
 # Expose the port your app runs on
 EXPOSE 3000
