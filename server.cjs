@@ -14,13 +14,20 @@ app.use(express.json());
 // Hotel routes
 app.get('/hotels', async (req, res) => {
   try {
-    const hotels = await prisma.hotel.findMany();
+    const hotels = await prisma.hotel.findMany({
+      select: {
+        id: true,
+        name: true,
+        pin: true,
+      },
+    });
     res.json(hotels);
   } catch (error) {
     console.error('Error fetching hotels:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 app.get('/hotels/:id', async (req, res) => {
   try {
