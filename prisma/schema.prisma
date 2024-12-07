@@ -1,7 +1,6 @@
 datasource db {
   provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  url      = env("POSTGRES_PRISMA_URL")
 }
 
 generator client {
@@ -12,6 +11,7 @@ generator client {
 model Hotel {
   id         Int          @id @default(autoincrement())
   name       String
+  pin        Int?
   floors     Floor[]      @relation(name: "FloorToHotel")
   rooms      Room[]       @relation(name: "HotelToRoom")
   products   Product[]    @relation(name: "HotelToProduct")
@@ -80,7 +80,7 @@ model InvoiceItem {
   invoiceId Int
   productId Int
   quantity  Int
-  price     Float?  @default(0.0)
+  price     Float?  @default(0)
   name      String  @default("")
   invoice   Invoice @relation(name: "InvoiceToInvoiceItem", fields: [invoiceId], references: [id], onDelete: Cascade)
   product   Product @relation(name: "InvoiceItemToProduct", fields: [productId], references: [id], onDelete: Cascade)
@@ -93,4 +93,9 @@ model Storehouse {
   quantity  Int?
   product   Product @relation(name: "ProductToStorehouse", fields: [productId], references: [id], onDelete: Cascade)
   productId Int
+}
+
+enum permission {
+  admin
+  user
 }
