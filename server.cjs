@@ -387,7 +387,7 @@ app.get('/roomstocks', async (req, res) => {
 
 //Create new room stock entry
 app.post('/roomstocks/:roomId', async (req, res) => {
-  const { productId, quantity } = req.body;
+  const { productId, quantity = 1 } = req.body;  // Set default quantity to 1
   try {
     // Create the new roomStock entry
     const newRoomStock = await prisma.roomStock.create({
