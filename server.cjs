@@ -523,7 +523,7 @@ app.get('/invoices/hotel/:hotelId', async (req, res) => {
 
 
 app.post('/invoices', async (req, res) => {
-  const { total, items, date, hotelId, comment, room } = req.body;
+  const { total, items, date, hotelId, comment, room, montohotel } = req.body;
   try {
     const newInvoice = await prisma.invoice.create({
       data: {
@@ -532,6 +532,7 @@ app.post('/invoices', async (req, res) => {
         hotelId,
         comment,
         room,
+        montohotel: montohotel ?? total,
         items: {
           create: items,
         },

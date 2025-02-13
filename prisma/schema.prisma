@@ -65,14 +65,15 @@ model RoomStock {
 }
 
 model Invoice {
-  id      Int           @id @default(autoincrement())
-  total   Float?
-  items   InvoiceItem[] @relation(name: "InvoiceToInvoiceItem")
-  date    DateTime      @default(now())
-  hotelId Int?
-  hotel   Hotel?        @relation(name: "HotelToInvoice", fields: [hotelId], references: [id], onDelete: SetNull)
-  comment String?
-  room    Int?
+  id         Int           @id @default(autoincrement())
+  total      Float?
+  items      InvoiceItem[] @relation(name: "InvoiceToInvoiceItem")
+  date       DateTime      @default(now())
+  hotelId    Int?
+  hotel      Hotel?        @relation(name: "HotelToInvoice", fields: [hotelId], references: [id], onDelete: SetNull)
+  comment    String?
+  room       Int?
+  montohotel Float?
 }
 
 model InvoiceItem {
